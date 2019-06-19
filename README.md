@@ -1,14 +1,14 @@
 # Epiphany
-Short description and motivation.
+Open Source Ruby on Rails engine to build Custom Voice Assistants
 
 ## Usage
-How to use my plugin.
+*Currently in Alpha 
 
 ## Installation
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'epiphany'
+gem 'epiphany', :git => "git://github.com:geekdreamzz/epiphany.git", :branch => "alpha"
 ```
 
 And then execute:
@@ -16,13 +16,8 @@ And then execute:
 $ bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install epiphany
-```
-
 ## Contributing
-Contribution directions go here.
+Send Me a Message or submit a PR :) 
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
