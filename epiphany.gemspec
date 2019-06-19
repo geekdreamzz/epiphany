@@ -5,7 +5,7 @@ require "epiphany/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "Epiphany"
+  spec.name        = "epiphany"
   spec.version     = Epiphany::VERSION
   spec.authors     = ["geekdreamzz"]
   spec.email       = ["geekdreamzz@gmail.com"]
