@@ -17,18 +17,23 @@
         <thead>
         <tr>
           <th>phrase</th>
-          <th>analysis</th>
+          <th>top intent</th>
+          <th>Discovered Entities</th>
         </tr>
         </thead>
         <tbody>
         <% @phrases.each do |phrase| %>
+          <% intent = ::Epiphany::Intent.calculate(current_assistant, phrase) %>
+
           <tr class="tr-shadow">
-            <td><%= phrase.phrase %></td>
+            <td><%= intent.phrase_text %></td>
+            <td><%= intent.result_text %></td>
             <td>
-              <%= entity_matches(phrase.phrase) %>
+              <%= intent.display_entity_items_html %>
             </td>
           </tr>
           <tr class="spacer"></tr>
+
         <% end %>
         </tbody>
       </table>

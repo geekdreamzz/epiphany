@@ -1,5 +1,5 @@
 module Epiphany
-  module Analyzers
+  module Intents
     module RulesHelper
 
       def has_required_entities?
@@ -19,12 +19,16 @@ module Epiphany
         serialized_rules['required_entity_type_ids'] || []
       end
 
+      def boosted_entity_type_ids
+        serialized_rules['boosted_entity_type_ids'] || []
+      end
+
       def entity_type_ordered_list
         serialized_rules['entity_type_ordered_list'] || []
       end
 
       def serialized_rules
-        JSON.parse(rules) || {}
+        JSON.parse(metadata) || {}
       end
 
     end

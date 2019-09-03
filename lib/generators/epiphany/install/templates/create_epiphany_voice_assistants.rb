@@ -34,7 +34,7 @@ class CreateEpiphanyVoiceAssistants < ActiveRecord::Migration[Rails.version.to_f
     create_table :epiphany_intents do |t|
       t.string :name, null: false
       t.integer :voice_assistant_id, null: false
-      t.text :metadata, default: '{}'
+      t.text :rules, default: '{}'
       t.timestamps
     end
     add_index(:epiphany_intents, [:name], name: 'epiphany_intents_name_idx')
