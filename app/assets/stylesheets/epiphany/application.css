@@ -10,6 +10,18 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require font-face
+ *= require font-awesome-4.7/css/font-awesome.min
+ *= require font-awesome-5/css/fontawesome-all.min
+ *= require mdi-font/css/material-design-iconic-font.min
+ *= require animsition/animsition.min
+ *= require bootstrap-progressbar/bootstrap-progressbar-3.3.4.min
+ *= require wow/animate
+ *= require css-hamburgers/hamburgers.min
+ *= require slick/slick
+ *= require select2/select2.min
+ *= require perfect-scrollbar/perfect-scrollbar
+ *= require theme
  *= require_tree .
  *= require_self
  */

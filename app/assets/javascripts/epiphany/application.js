@@ -10,6 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require slick/slick.min
+//= require wow/wow.min
+//= require animsition/animsition.min
+//= require bootstrap-progressbar/bootstrap-progressbar.min
+//= require counter-up/jquery.waypoints.min
+//= require counter-up/jquery.counterup.min
+//= require circle-progress/circle-progress.min
+//= require perfect-scrollbar/perfect-scrollbar
+//= require chartjs/Chart.bundle.min
+//= require select2/select2.min
+//= require main
 //= require rails-ujs
-//= require activestorage
 //= require_tree .

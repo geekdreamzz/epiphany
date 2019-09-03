@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- DATA TABLE -->
+    <div class="overview-wrap">
+      <h2 class="title-5">Advanced Analyzers</h2>
+      <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#addAdvancedAnalyzer">
+        <i class="zmdi zmdi-plus"></i>
+        Create Analyzer
+      </button>
+    </div>
+    <hr/>
+    <p>Advanced Analyzers are used to detect "Advanced Entity Types". Advanced Entity Types typically comprise of
+      other entities + some additional rules below. If the Analyzer returns true based on these rules, it will flag
+      that phrase/token as a new Entity Type w/ this analyzer as the corresponding name.
+    </p>
+    <hr/>
+    <div class="table-responsive table-responsive-data2">
+      <table class="table table-data2">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Rules</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% all_analyzers.each do |analyzer| %>
+            <tr class="tr-shadow">
+              <td><%= analyzer.name %></td>
+              <td>
+                #TODO format/stringify the rules?
+              </td>
+              <td>
+                <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#editAdvancedAnalyzer<%= analyzer.id %>">
+                  edit
+                </button>
+              </td>
+            </tr>
+            <tr class="spacer"></tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- END DATA TABLE -->
+  </div>
+</div>

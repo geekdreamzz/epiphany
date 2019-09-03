@@ -2,3 +2,21 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+.main-content {
+    padding-top: 30px;
+}
+
+.overview-item {
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+.overview-box .text {
+    margin-top: -10px;
+}
+
+.overview-box .text .va_name {
+    font-weight: 500;
+    margin-bottom: 5px;
+}

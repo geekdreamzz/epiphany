@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- DATA TABLE -->
+    <div class="table-data__tool">
+      <div class="table-data__tool-left">
+        <h3 class="title-5 m-b-35">Machine Learning Phrases</h3>
+      </div>
+      <div class="table-data__tool-right">
+        <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#addTestPhrase">
+          <i class="zmdi zmdi-plus"></i>
+          add phrase
+        </button>
+      </div>
+    </div>
+    <div class="table-responsive table-responsive-data2">
+      <table class="table table-data2">
+        <thead>
+        <tr>
+          <th>phrase</th>
+          <th>analysis</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @phrases.each do |phrase| %>
+          <tr class="tr-shadow">
+            <td><%= phrase.phrase %></td>
+            <td>
+              <%= entity_matches(phrase.phrase) %>
+            </td>
+          </tr>
+          <tr class="spacer"></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- END DATA TABLE -->
+  </div>
+</div>

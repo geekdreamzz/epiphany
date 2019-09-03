@@ -1,0 +1,36 @@
+<div class="modal fade" id="addEntityTypeItems<%= entity_type.id %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="largeModalLabel">Add Entity Type Items</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <form action="<%= assistant_base_url %>/entity_types/<%= entity_type.id %>" method="put">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <div class="form-group has-success">
+                <label for="key_phrases" class="control-label mb-1">Known Key Phrases</label>
+                <textarea rows="8" id="key_phrases" name="key_phrases" class="form-control valid" aria-required="true"
+                          placeholder="List of entity words/phrases. Separate each by comma." required></textarea>
+              </div>
+              <div>
+                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                  <i class="zmdi zmdi-collection-bookmark"></i>
+                  <span id="payment-button-amount">Save</span>
+                  <span id="payment-button-sending" style="display:none;">Saving…</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
