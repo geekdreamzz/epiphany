@@ -1,0 +1,100 @@
+<div class="modal fade" id="editIntent<%= intent.id %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="largeModalLabel">Edit <%= intent.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <form action="<%= assistant_base_url %>/intents/<%= intent.id %>" method="post">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <p>After tokenization and entity recognition, the data gets passed off to the "Intents" module. Each Intent will
+                run their configured rules against the data and will calculate an "intent score." The highest score if any,
+                will be returned by the voice assistant as the "top intent".
+              </p>
+              <hr/>
+              <input id="intent-name" name="intent_name" type="hidden" class="form-control valid"
+                     data-val="true" data-val-required="Enter name for Intent" aria-required="true"
+                     aria-invalid="false" aria-describedby="entity-type-name-error" required value="<%= intent.name %>">
+
+              <div class="form-group has-success">
+                <fieldset>
+                  <legend>Required Entities: </legend>
+                  <p>The intent must at least have these entities:</p>
+                  <% all_entity_types.each do |entity_type| %>
+                    <label for="checkbox-nested-1">
+                      <%= check_box_tag("required_entity_#{entity_type.id}",
+                                        entity_type.id,
+                                        intent.selected_required_entity_type_id?(entity_type.id)
+                          )%>
+                      <%= entity_type.name %>
+                    </label>
+                  <% end %>
+                </fieldset>
+              </div>
+
+              <div class="form-group has-success">
+                <fieldset>
+                  <legend>Show Stopper Entities: </legend>
+                  <p>If a phrase has 1 of these, it will automatically return false for this intent:</p>
+                  <% all_entity_types.each do |entity_type| %>
+                    <label for="checkbox-nested-1">
+                      <%= check_box_tag("show_stopper_entity_#{entity_type.id}",
+                                        entity_type.id,
+                                        intent.selected_show_stopper_id?(entity_type.id)
+                          )%>
+                      <%= entity_type.name %>
+                    </label>
+                  <% end %>
+                </fieldset>
+              </div>
+
+              <div class="form-group has-success">
+                <fieldset>
+                  <legend>Boosted Entities: </legend>
+                  <p>Not a required entity but if present it will boost the intent score.</p>
+                  <% all_entity_types.each do |entity_type| %>
+                    <label for="checkbox-nested-1">
+                      <%= check_box_tag("boosted_entity_#{entity_type.id}",
+                                        entity_type.id,
+                                        intent.selected_boosted_entity_id?(entity_type.id)
+                          )%>
+                      <%= entity_type.name %>
+                    </label>
+                  <% end %>
+                </fieldset>
+              </div>
+
+              <!-- need a better UI here, for now instructing ppl to copy and paste the order that matters -->
+              <div class="form-group has-success">
+                <legend>Entity Types Order List: </legend>
+                <p> Leave Blank if full string value is what you want. However, given the rules above return true, that
+                  just validates the context. The actual entity value can vary. Here you can comma separate
+                  the order of entity types and the tokenizer will very it is in order</p>
+                <p>ENTITY TYPE OPTIONS:</p>
+                <p><%= all_entity_types.map{|et| et.name }.join(', ') %></p>
+                <textarea rows="8" id="entity_type_order" name="entity_type_ordered_list" class="form-control valid"
+                          placeholder="Ordered List of Entity Types Separated By Comma"
+                ><%= intent.entity_type_order_list_string %></textarea>
+              </div>
+              <div>
+                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                  <i class="zmdi zmdi-collection-bookmark"></i>
+                  <span id="payment-button-amount">Save</span>
+                  <span id="payment-button-sending" style="display:none;">Saving…</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

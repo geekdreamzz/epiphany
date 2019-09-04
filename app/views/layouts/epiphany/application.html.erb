@@ -1,16 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Epiphany</title>
+  <title>Epiphany Natural Language Processor and Machine Learning Library</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag    "epiphany/application", media: "all" %>
-  <%= javascript_include_tag "epiphany/application" %>
+  <!-- Required meta tags-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Epiphany Natural Language Processor and Machine Learning Library">
+  <meta name="author" content="Bunnarith Bao">
+  <meta name="keywords" content="Epiphany Natural Language Processor and Machine Learning Library">
+
+
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <%= stylesheet_link_tag "epiphany/application", media: "all" %>
+
 </head>
-<body>
+<body class="animsition">
+  <div class="page-wrapper">
 
-<%= yield %>
+    <%= render partial: 'shared/sidenav' %>
 
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+
+      <!-- MAIN CONTENT-->
+      <div class="main-content">
+        <div class="section__content section__content--p30">
+          <div class="container-fluid">
+            <%= yield %>
+            <%= render partial: "shared/footer" %>
+          </div>
+        </div>
+      </div>
+      <!-- END MAIN CONTENT-->
+      <!-- END PAGE CONTAINER-->
+    </div>
+
+    <!-- MODALS-->
+    <%= render partial: "modals/add_test_phrase_modal" %>
+    <%= render partial: "modals/add_entity_type_modal" %>
+    <%= render partial: "modals/add_new_assistant_modal" %>
+    <%= render partial: "modals/add_advanced_analyzer_modal" %>
+    <%= render partial: "modals/add_intent_modal" %>
+
+    <% if @entity_types.present? %>
+      <% @entity_types.each do |et| %>
+        <%= render partial: "modals/add_entity_type_item_modal", locals: {entity_type: et} %>
+      <% end %>
+    <% end %>
+
+    <% if all_analyzers.present? %>
+      <% all_analyzers.each do |analyzer| %>
+        <%= render partial: "modals/edit_advanced_analyzer_modal", locals: {analyzer: analyzer} %>
+      <% end %>
+    <% end %>
+
+    <% if all_intents.present? %>
+      <% all_intents.each do |intent| %>
+        <%= render partial: "modals/edit_intent_modal", locals: {intent: intent} %>
+      <% end %>
+    <% end %>
+    <!-- END MODALS-->
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+  <%= javascript_include_tag "epiphany/application" %>
+
+  <script type="application/javascript">
+      <% if params[:a] == '1' %>
+        $(document).ready(function () {
+           alert('Please create a voice assistant first!')
+        });
+      <% end %>
+  </script>
 </body>
 </html>

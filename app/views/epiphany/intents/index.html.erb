@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- DATA TABLE -->
+    <div class="overview-wrap">
+      <h2 class="title-5">Intents</h2>
+      <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#addIntent">
+        <i class="zmdi zmdi-plus"></i>
+        Create Intent
+      </button>
+    </div>
+    <hr/>
+    <p> After tokenization and entity recognition, the data gets passed off to the "Intents" module. Each Intent will
+      run their configured rules against the data and will calculate an "intent score." The highest score if any,
+      will be returned by the voice assistant as the "top intent".
+    </p>
+    <hr/>
+    <div class="table-responsive table-responsive-data2">
+      <table class="table table-data2">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Rules</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% all_intents.each do |intent| %>
+          <tr class="tr-shadow">
+            <td><%= intent.name %></td>
+            <td>
+              #TODO format/stringify the rules?
+            </td>
+            <td>
+              <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#editIntent<%= intent.id %>">
+                edit
+              </button>
+            </td>
+          </tr>
+          <tr class="spacer"></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- END DATA TABLE -->
+  </div>
+</div>

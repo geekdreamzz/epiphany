@@ -1,0 +1,83 @@
+<div class="modal fade" id="editAdvancedAnalyzer<%= analyzer.id %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="largeModalLabel">Edit <%= analyzer.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <form action="<%= assistant_base_url %>/analyzers/<%= analyzer.id %>" method="post">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <p>Advanced Analyzers are used to detect "Advanced Entity Types".
+                Advanced Entity Types typically comprise of other entities + some additional rules below.
+                If the Analyzer returns true based on these rules, it will flag that phrase/token as a new Entity Type w/
+                this analyzer as the corresponding name.
+              </p>
+              <hr/>
+              <input id="advanced-analyzer-name" name="advanced_analyzer_name" type="hidden" class="form-control valid"
+                     data-val="true" data-val-required="Please enter name for advanced analyzer" aria-required="true"
+                     aria-invalid="false" aria-describedby="entity-type-name-error" required value="<%= analyzer.name %>">
+              <div class="form-group has-success">
+                <fieldset>
+                  <legend>Required Entities: </legend>
+                  <p>The entities of a phrase must at least have these entities:</p>
+                  <% all_entity_types.each do |entity_type| %>
+                    <label for="checkbox-nested-1">
+                      <%= check_box_tag("required_entity_#{entity_type.id}",
+                                        entity_type.id,
+                                        analyzer.selected_required_entity_type_id?(entity_type.id)
+                                        )%>
+                      <%= entity_type.name %>
+                    </label>
+                  <% end %>
+                </fieldset>
+              </div>
+              <div class="form-group has-success">
+                <fieldset>
+                  <legend>Show Stopper Entities: </legend>
+                  <p>If a phrase has 1 of these, it will automatically return false for this analyzer:</p>
+                  <% all_entity_types.each do |entity_type| %>
+                    <label for="checkbox-nested-1">
+                      <%= check_box_tag("show_stopper_entity_#{entity_type.id}",
+                                        entity_type.id,
+                                        analyzer.selected_showstopper_id?(entity_type.id)
+                          )%>
+                      <%= entity_type.name %>
+                    </label>
+                  <% end %>
+                </fieldset>
+              </div>
+              <!-- need a better UI here, for now instructing ppl to copy and paste the order that matters -->
+              <div class="form-group has-success">
+                <legend>Entity Types Order List: </legend>
+                <p> Leave Blank if full string value is what you want. However, given the rules above return true, that
+                  just validates the context. The actual entity value can vary. Here you can comma separate
+                  the order of entity types and the tokenizer will pluck out only those values from the token (in that order
+                  of course).</p>
+                <p>ENTITY TYPE OPTIONS:</p>
+                <p><%= all_entity_types.map{|et| et.name }.join(', ') %></p>
+                <textarea rows="8" id="entity_type_order" name="entity_type_ordered_list" class="form-control valid"
+                          placeholder="Ordered List of Entity Types Separated By Comma"
+                ><%= analyzer.entity_type_order_list_string %></textarea>
+              </div>
+              <div>
+                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                  <i class="zmdi zmdi-collection-bookmark"></i>
+                  <span id="payment-button-amount">Save</span>
+                  <span id="payment-button-sending" style="display:none;">Saving…</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

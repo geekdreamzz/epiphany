@@ -1,0 +1,35 @@
+<!-- buttons row -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="overview-wrap">
+      <h2 class="title-1">Assistants</h2>
+      <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#addVoiceAssistant">
+        <i class="zmdi zmdi-plus"></i>
+        Create New Assistant
+      </button>
+    </div>
+  </div>
+</div>
+<!-- end buttons row -->
+
+<!-- voice assistant cards -->
+<div class="row m-t-25">
+  <% @voice_assistants.each do |va| %>
+    <div class="col-sm-6 col-lg-4">
+      <a href="/voice_assistants/<%= va.id %>/entity_types">
+      <div class="overview-item overview-item--c1">
+        <div class="overview__inner">
+          <div class="overview-box clearfix">
+            <div class="text">
+                <h2 class="va_name"><%= va.name %></h2>
+                <span><%= va.description %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </a>
+    </div>
+  <% end %>
+</div>
+<!-- voice assistant cards -->
+
