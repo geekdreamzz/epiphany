@@ -36,6 +36,7 @@
                   <% end %>
                 </fieldset>
               </div>
+
               <div class="form-group has-success">
                 <fieldset>
                   <legend>Show Stopper Entities: </legend>
@@ -51,6 +52,27 @@
                   <% end %>
                 </fieldset>
               </div>
+
+              <div class="form-group has-success">
+                <fieldset>
+                  <legend>Grammar & Parts of Speech Rules: </legend>
+                  <p>Value options are: required, show_stopper, or boosted, if the analyzer returns true for this grammar
+                    rule, the provided value will be enforced, otherwise it skips it and continues with the analysis
+                  </p>
+                  <% parts_of_speech_fields.each do |pos| %>
+                    <label for="checkbox-nested-1" class="pos-label">
+                      <%= pos %>
+                    </label>
+                    <select class="pos-select" name="pos_<%= pos %>">
+                      <option></option>
+                      <% parts_of_speech_value_options.each do |opt| %>
+                        <option class="pos-selection" <%= 'selected' if analyzer.selected_pos_val?(pos, opt) %> value="<%= opt %>"> <%= opt %> </option>
+                      <% end %>
+                    </select>
+                  <% end %>
+                </fieldset>
+              </div>
+
               <!-- need a better UI here, for now instructing ppl to copy and paste the order that matters -->
               <div class="form-group has-success">
                 <legend>Entity Types Order List: </legend>

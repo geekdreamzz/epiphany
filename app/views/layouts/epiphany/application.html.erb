@@ -45,6 +45,13 @@
     <%= render partial: "modals/add_advanced_analyzer_modal" %>
     <%= render partial: "modals/add_intent_modal" %>
 
+    <% if @entity_type %>
+      <%= render partial: "modals/add_entity_type_item_modal", locals: {entity_type: @entity_type} %>
+      <% @entity_type.entity_items.each do |entity_item| %>
+        <%= render partial: "modals/edit_entity_item_metadata", locals: {entity_item: entity_item} %>
+      <% end %>
+    <% end %>
+
     <% if @entity_types.present? %>
       <% @entity_types.each do |et| %>
         <%= render partial: "modals/add_entity_type_item_modal", locals: {entity_type: et} %>

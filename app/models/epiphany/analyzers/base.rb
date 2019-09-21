@@ -1,5 +1,6 @@
 module Epiphany
   module Analyzers
+
     module Base
       include Number
       include AdvancedAnalysis

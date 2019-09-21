@@ -1,8 +1,12 @@
 module Epiphany
   class TrainingPhrase < ApplicationRecord
     include ::Epiphany::Tokenizer
+    include Phrases::Giphy
+    include Phrases::Responder
 
     belongs_to :voice_assistant
+
+    attr_accessor :intent
 
     def detected_entities
 

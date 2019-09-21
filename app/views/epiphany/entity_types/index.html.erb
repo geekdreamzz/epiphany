@@ -20,33 +20,19 @@
 </br>
 <div class="row">
   <% @entity_types.each do |et| %>
+    <% next if et.analyzer_id %>
     <div class="col-lg-6">
-    <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-      <div class="au-card-title">
-        <div class="bg-overlay bg-overlay--blue"></div>
-        <h3>
-          <i class="zmdi zmdi-collection-bookmark"></i><%= et.name %></h3>
-        <button class="au-btn-plus" data-toggle="modal" data-target="#addEntityTypeItems<%= et.id %>">
-          <i class="zmdi zmdi-plus"></i>
-        </button>
-      </div>
-      <div class="au-task js-list-load">
-        <div class="au-message__noti">
-          <p><span><%= et.entity_items.count %> Phrases</span></p>
+      <a class="white-link full-width" href="<%= generate_url('/entity_types/'+et.id.to_s) %>">
+        <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
+          <div class="au-card-title">
+            <div class="bg-overlay bg-overlay--blue"></div>
+            <h3>
+              <i class="zmdi zmdi-collection-bookmark"></i>
+              <%= et.name %>
+            </h3>
+          </div>
         </div>
-        <div class="au-task-list js-scrollbar3">
-          <% et.entity_items.each do |item| %>
-            <div class="au-task__item au-task__item--success">
-              <div class="au-task__item-inner">
-                <h5 class="task">
-                  <a href="#"><%= item.name %></a>
-                </h5>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
+      </a>
     </div>
-  </div>
   <% end %>
 </div>

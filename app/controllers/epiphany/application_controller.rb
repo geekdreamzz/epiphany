@@ -6,7 +6,7 @@ module Epiphany
     before_action :reroute_unless_assistant
 
     def reroute_unless_assistant
-      redirect_to('/?a=1') if get_assistant.blank?
+      redirect_to('/epiphany?a=1') if get_assistant.blank?
     end
 
     def current_assistant

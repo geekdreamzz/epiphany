@@ -15,6 +15,22 @@ module Epiphany
         entity_type_ordered_list.join(', ')
       end
 
+      def required_part_of_speech?(pos)
+        parts_of_speech_rules[pos] == 'required'
+      end
+
+      def show_stopper_part_of_speech?(pos)
+        parts_of_speech_rules[pos] == 'show_stopper'
+      end
+
+      def boosted_part_of_speech?(pos)
+        parts_of_speech_rules[pos] == 'boosted'
+      end
+
+      def selected_pos_val?(field, val)
+        parts_of_speech_rules[field] == val
+      end
+
     end
   end
 end

@@ -10,7 +10,7 @@
       <div class="modal-body">
         <div class="card">
           <div class="card-body">
-            <form action="<%= assistant_base_url %>/entity_types/<%= entity_type.id %>" method="put">
+            <form action="<%= assistant_base_url %>/entity_types/<%= entity_type.id %>" method="post">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
               <div class="form-group has-success">
                 <label for="key_phrases" class="control-label mb-1">Known Key Phrases</label>

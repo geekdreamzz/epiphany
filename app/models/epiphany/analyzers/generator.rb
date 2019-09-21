@@ -30,11 +30,13 @@ module Epiphany
         rules = {
             required_entity_type_ids: [],
             show_stopper_entity_type_ids: [],
-            entity_type_ordered_list: []
-
+            entity_type_ordered_list: [],
+            parts_of_speech: {}
         }
 
         params.each do |k,v|
+          next if v.blank?
+
           if k.to_s.starts_with?('required_entity_')
             rules[:required_entity_type_ids] << v.to_i
           end
@@ -43,7 +45,21 @@ module Epiphany
             rules[:show_stopper_entity_type_ids] << v.to_i
           end
 
-          if k == 'entity_type_ordered_list' && v.present?
+          if k.to_s.starts_with?('pos_')
+            key = ::Epiphany::Analyzers::PartsOfSpeech::SUPPORTED_FIELDS.find do |field|
+              field == k.split('pos_').last
+            end
+
+            val = ::Epiphany::Analyzers::PartsOfSpeech::VALUE_OPTIONS.find do |opt|
+              opt == v.strip
+            end
+
+            # parts of speech fields / vals are enforced in the above constants
+            next unless key && val
+            rules[:parts_of_speech][key] = val
+          end
+
+          if k == 'entity_type_ordered_list'
             rules[:entity_type_ordered_list] = v.split(',').map{|val| val.strip }
           end
         end

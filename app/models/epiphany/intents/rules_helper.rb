@@ -27,6 +27,10 @@ module Epiphany
         serialized_rules['entity_type_ordered_list'] || []
       end
 
+      def parts_of_speech_rules
+        serialized_rules['parts_of_speech'] || {}
+      end
+
       def serialized_rules
         JSON.parse(metadata) || {}
       end

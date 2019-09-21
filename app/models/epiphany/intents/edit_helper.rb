@@ -18,6 +18,10 @@ module Epiphany
         entity_type_ordered_list.join(', ')
       end
 
+      def selected_pos_val?(field, val)
+        parts_of_speech_rules[field] == val
+      end
+
       def display_entity_items_html
         tokenized_entity_items.map do |entity_item|
           "#{entity_item.entity_type.name}: #{entity_item.name}"

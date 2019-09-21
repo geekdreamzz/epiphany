@@ -10,6 +10,12 @@ Epiphany::Engine.routes.draw do
       end
     end
 
+    resources :entity_items do
+      collection do
+        post '/:id', to: "entity_items#process_metadata"
+      end
+    end
+
     resources :intents do
       collection do
         post '/:id', to: "intents#create" # this also can handle update

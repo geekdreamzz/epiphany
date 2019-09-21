@@ -1,0 +1,54 @@
+<div class="modal fade" id="editEntityItemMetadata<%= entity_item.id %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="largeModalLabel">Edit Metadata For: <%= entity_item.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <form class="addEntityItemMetadataForm" action="<%= assistant_base_url %>/entity_items/<%= entity_item.id %>" method="post">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <input type="hidden" class="metadataDataHolder" name="entity_item_metadata" />
+              <div class="form-group has-success addMetaDataButton">
+                <button type="button" class="au-btn au-btn-icon au-btn--green au-btn--small addMetadataField"> +Add Metadata Field </button>
+              </div>
+              <p>
+                Each field name should be unique. If for some reason a duplicate field name is added, it will just
+                overwrite any previous field name & value. Any blank fields or values get ignored.
+              </p>
+              <div class="form-group has-success metadata-container">
+                <div class="inline-metadata-group placeholder">
+                  <input class="metadata-input" type="text" placeholder="Field Name" />
+                  <input class="metadata-input" type="text" placeholder="Value" />
+                </div>
+                <div class="inline-metadata-group">
+                  <input class="metadata-input" type="text" placeholder="Field Name" />
+                  <input class="metadata-input" type="text" placeholder="Value" />
+                </div>
+                <% entity_item.serialized_metadata.each do |field, val| %>
+                  <div class="inline-metadata-group">
+                    <input class="metadata-input" type="text" value="<%= field %>" />
+                    <input class="metadata-input" type="text" value="<%= val %>" />
+                  </div>
+                <% end %>
+              </div>
+              <div>
+                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                  <i class="zmdi zmdi-collection-bookmark"></i>
+                  <span id="payment-button-amount">Save</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

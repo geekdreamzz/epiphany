@@ -1,6 +1,8 @@
 module Epiphany
   class EntityType < ApplicationRecord
     has_many :entity_items
+    has_one :analyzer
+    has_one :voice_assistant
 
     before_save :strip_name
 

@@ -13,6 +13,10 @@ module Epiphany
       redirect_to(generate_url('/entity_types'))
     end
 
+    def show
+      @entity_type = EntityType.find(params[:id])
+    end
+
     def add_items
       current_entity_type.add_items(params[:key_phrases])
       redirect_to(generate_url('/entity_types'))

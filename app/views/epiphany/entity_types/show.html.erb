@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- DATA TABLE -->
+    <div class="overview-wrap">
+      <h2 class="title-5">Entity Type: <%= @entity_type.name %></h2>
+      <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#addEntityTypeItems<%= @entity_type.id %>">
+        <i class="zmdi zmdi-plus"></i>
+        Add Items
+      </button>
+    </div>
+    <hr/>
+    <p>
+      Add metadata to the entity items within this entity type. This generic metadata association will enable you to further enhance your
+      application whenever the Epiphany library detects these entities.
+    </p>
+    <hr/>
+    <div class="table-responsive table-responsive-data2">
+      <table class="table table-data2">
+        <thead>
+        <tr>
+          <th>Keyword(s)</th>
+          <th>Metadata</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @entity_type.entity_items.each do |entity_item| %>
+          <tr class="tr-shadow">
+            <td><%= entity_item.name %></td>
+            <td>
+              #TODO format/stringify the metadata?
+            </td>
+            <td>
+              <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#editEntityItemMetadata<%= entity_item.id %>">
+                edit
+              </button>
+            </td>
+          </tr>
+          <tr class="spacer"></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- END DATA TABLE -->
+  </div>
+</div>
