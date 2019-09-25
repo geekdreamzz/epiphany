@@ -1,0 +1,39 @@
+<div class="modal fade" id="uploadEntityTypeItemsCSV" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="largeModalLabel">Upload Entity Items CSV</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <form enctype="multipart/form-data" action="<%= assistant_base_url %>/entity_types/<%= entity_type.id %>/csv" method="post">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <div class="form-group has-success">
+                <label for="key_phrases" class="control-label mb-1">
+                  Always first download (button to the left) a CSV template prior to importing so that you have a
+                  validated template with the correct fields. If not, the importer may flag the import as a failure
+                  if field names are not in sync.
+                </label>
+                <input type="file" accept=".csv" name="entity_type_csv" />
+              </div>
+              <div>
+                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                  <i class="zmdi zmdi-collection-bookmark"></i>
+                  <span id="payment-button-amount">Save</span>
+                  <span id="payment-button-sending" style="display:none;">Saving…</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

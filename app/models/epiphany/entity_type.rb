@@ -1,5 +1,7 @@
 module Epiphany
   class EntityType < ApplicationRecord
+    include EntityTypes::Csv
+
     has_many :entity_items
     has_one :analyzer
     has_one :voice_assistant
@@ -17,6 +19,14 @@ module Epiphany
       end
       _items = items.blank? ? EntityItem.where(name: phrases[0].strip, entity_type_id: self.id) : items
       _items.first
+    end
+
+    def create_or_add_item_w(name, metadata)
+      if item = EntityItem.where(name: name, entity_type_id: self.id).first
+        item.update(metadata: metadata)
+      else
+        EntityItem.create(name: name, entity_type_id: self.id, metadata: metadata)
+      end
     end
 
     def strip_name

@@ -15,6 +15,18 @@ module Epiphany
 
     def show
       @entity_type = EntityType.find(params[:id])
+      respond_to do |format|
+        format.html
+        format.csv {
+          send_data @entity_type.api_csv, filename: "export-#{@entity_type.name}-items-template-#{Date.today}.csv"
+        }
+      end
+    end
+
+    def csv_import
+      @entity_type = EntityType.find(params[:id])
+      @entity_type.import_csv(params[:entity_type_csv])
+      redirect_to(generate_url('/entity_types/'+@entity_type.id.to_s))
     end
 
     def add_items

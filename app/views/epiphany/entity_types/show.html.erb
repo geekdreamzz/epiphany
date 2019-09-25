@@ -3,10 +3,24 @@
     <!-- DATA TABLE -->
     <div class="overview-wrap">
       <h2 class="title-5">Entity Type: <%= @entity_type.name %></h2>
+
       <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#addEntityTypeItems<%= @entity_type.id %>">
         <i class="zmdi zmdi-plus"></i>
         Add Items
       </button>
+
+      <a href="<%= generate_url('/entity_types/'+@entity_type.id.to_s+'.csv') %>" target="_blank">
+        <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button">
+          <i class="zmdi zmdi-case-download"></i>
+          Download CSV
+        </button>
+      </a>
+
+      <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#uploadEntityTypeItemsCSV">
+        <i class="zmdi zmdi-cloud-upload"></i>
+        Import CSV
+      </button>
+
     </div>
     <hr/>
     <p>

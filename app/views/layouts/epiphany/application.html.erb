@@ -47,6 +47,7 @@
 
     <% if @entity_type %>
       <%= render partial: "modals/add_entity_type_item_modal", locals: {entity_type: @entity_type} %>
+      <%= render partial: "modals/upload_entity_items_csv", locals: {entity_type: @entity_type} %>
       <% @entity_type.entity_items.each do |entity_item| %>
         <%= render partial: "modals/edit_entity_item_metadata", locals: {entity_item: entity_item} %>
       <% end %>

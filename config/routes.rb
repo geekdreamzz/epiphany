@@ -7,6 +7,7 @@ Epiphany::Engine.routes.draw do
     resources :entity_types do
       collection do
         post '/:id', to: "entity_types#add_items"
+        post '/:id/csv', to: "entity_types#csv_import"
       end
     end
 
