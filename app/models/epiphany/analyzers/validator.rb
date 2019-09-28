@@ -32,10 +32,14 @@ module Epiphany
       # my validation rules. Doing this with real ML, getting lots of training data, and constantly
       # training it would be a nightmare also... so I'm not too worried about hacking right now
       def valid_proximity?(_str)
-        words = _str.split(' ')
+        words = @keyword_hits.strip&.split(' ') || []
+        words.compact!
         max_proximity_count = words.length * 3
         proximity_count = 0
-        words.map{|w| str_token.index(w) }.sort.reverse.each_with_index do |str_idx, idx|
+        # sometimes the keyword hits array gets bloated
+        # TODO revisit and debug, but it seems to not impact the scoring accuracy
+        sorted = words.map{|w| str_token.index(w) }.sort.reverse rescue []
+        sorted.each_with_index do |str_idx, idx|
           if idx == 0
             proximity_count = str_idx
             next

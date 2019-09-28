@@ -5,7 +5,12 @@ module Epiphany
     include Intents::RulesHelper
     include Intents::CalculateScore
     include Analyzers::PartsOfSpeech
+    include OnSave
 
+    before_save :normalize_name
+
+    # bad at naming stuff and I couldn't decide - sorry!
+    alias_attribute :metadata, :rules
     attr_accessor :tokenized_entity_items, :score, :phrase
 
     def constant_name

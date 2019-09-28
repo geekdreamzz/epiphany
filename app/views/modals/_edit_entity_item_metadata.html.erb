@@ -12,6 +12,16 @@
           <div class="card-body">
             <form class="addEntityItemMetadataForm" action="<%= assistant_base_url %>/entity_items/<%= entity_item.id %>" method="post">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+              <legend>Synonyms / Word Variations: </legend>
+              <p>
+                Comma separate synonyms/variations/acronyms etc of "<%= entity_item.name %>". By default we add the
+                singular & plural form & will add additional support for other forms of grammar in the future.
+              </p>
+              <div class="form-group has-success variations">
+                <textarea name="variations" placeholder="example1, example2, example3"><%= entity_item.variations.join(', ') %></textarea>
+              </div>
+
               <input type="hidden" class="metadataDataHolder" name="entity_item_metadata" />
               <div class="form-group has-success addMetaDataButton">
                 <button type="button" class="au-btn au-btn-icon au-btn--green au-btn--small addMetadataField"> +Add Metadata Field </button>

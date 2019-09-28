@@ -7,6 +7,9 @@ module Epiphany
     include Analyzers::Validator
     include Analyzers::Value
     include Analyzers::PartsOfSpeech
+    include OnSave
+
+    before_save :normalize_name
 
     has_one :entity_type
 

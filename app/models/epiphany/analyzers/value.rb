@@ -24,12 +24,21 @@ module Epiphany
           @_matches = matches if idx == 0
 
           match = nil
+          @keyword_hits ||= ''
           @_matches.each do |_match|
-            if _match.entity_type.name == entity_type_name.strip && _str_token.include?(_match.name)
+            next unless _match.entity_type.name == entity_type_name.strip
+
+            # entity_type_ordered_list is the order of entity types for some display value
+            # if we make it here, we have a possible match
+            keyword_hit = _match.variations.find{|variation| _str_token.include?(variation) }
+
+            if keyword_hit
               match = _match
-              str_dix = _str_token.index(_match.name) + _match.name.length
-              _str_token = _str_token[str_dix.._str_token.length]
+              str_dix = _str_token.index(keyword_hit)
+              _str_token = (_str_token[str_dix.._str_token.length]).to_s
+              @keyword_hits << "#{keyword_hit.strip} "
             end
+
           end
 
           next unless match || idx == entity_type_ordered_list.count - 1

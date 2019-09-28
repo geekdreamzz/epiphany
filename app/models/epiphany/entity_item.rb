@@ -1,19 +1,12 @@
 module Epiphany
   class EntityItem < ApplicationRecord
     extend EntityItems::Stubber
+    include OnSave
 
     belongs_to :entity_type
-
     attr_accessor :tokenized_entities
-
-    def process_metadata(metadata)
-      return unless metadata.present? && metadata.is_a?(String)
-      _metadata = JSON.parse(metadata)
-      valid = _metadata.map do |k,v|
-        k.present? && v.present?
-      end.all?
-      self.update(metadata: metadata) if valid
-    end
+    before_save :normalize_name
+    before_save :default_variations
 
     def serialized_metadata
       return {} unless metadata.present?
@@ -28,7 +21,6 @@ module Epiphany
       @tokenized_entities ||= voice_assistant.tokenize(name)
     end
 
-
     class << self
 
       def matches(ids)
@@ -37,7 +29,7 @@ module Epiphany
 
       #fragments is an array of strings. Tokenized from original phrase
       def str_token_matches(str_tokens)
-        where(name: str_tokens)
+        where("variations && ARRAY[?]", str_tokens)
       end
 
       def match_ids(str_tokens)

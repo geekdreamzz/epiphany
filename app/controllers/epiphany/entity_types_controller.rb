@@ -31,7 +31,7 @@ module Epiphany
 
     def add_items
       current_entity_type.add_items(params[:key_phrases])
-      redirect_to(generate_url('/entity_types'))
+      redirect_to(generate_url("/entity_types/#{current_entity_type.id}"))
     end
 
     def entity_type_params

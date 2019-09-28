@@ -1,12 +1,13 @@
 module Epiphany
   class EntityType < ApplicationRecord
     include EntityTypes::Csv
+    include OnSave
 
     has_many :entity_items
     has_one :analyzer
     has_one :voice_assistant
 
-    before_save :strip_name
+    before_save :normalize_name
 
     def add_items(phrases)
       phrases = phrases.split(',')
@@ -27,10 +28,6 @@ module Epiphany
       else
         EntityItem.create(name: name, entity_type_id: self.id, metadata: metadata)
       end
-    end
-
-    def strip_name
-      self.name = name.strip
     end
 
     class << self
