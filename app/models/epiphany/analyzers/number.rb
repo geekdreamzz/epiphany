@@ -4,10 +4,10 @@ module Epiphany
       # id 0 signifies a sys id
 
       def number_entity_type
-        @number_entity_type ||= if Epiphany::EntityType.exists?(name: 'Number')
-                                  Epiphany::EntityType.find_by_name('Number')
+        @number_entity_type ||= if Epiphany::EntityType.exists?(name: 'number')
+                                  Epiphany::EntityType.find_by_name('number')
                                 else
-                                  Epiphany::EntityType.create(name: 'Number', voice_assistant_id: 0)
+                                  Epiphany::EntityType.create(name: 'number', voice_assistant_id: 0)
                                 end
       end
 

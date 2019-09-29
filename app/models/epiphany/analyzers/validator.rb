@@ -38,7 +38,9 @@ module Epiphany
         proximity_count = 0
         # sometimes the keyword hits array gets bloated
         # TODO revisit and debug, but it seems to not impact the scoring accuracy
-        sorted = words.map{|w| str_token.index(w) }.sort.reverse rescue []
+        # - UPDATE it looks like the bloat issue was due to me referencing
+        # str_token.index and not the @keyword_hits - i think we're good...
+        sorted = words.map{|w| @keyword_hits.index(w) }.sort.reverse #rescue []
         sorted.each_with_index do |str_idx, idx|
           if idx == 0
             proximity_count = str_idx
