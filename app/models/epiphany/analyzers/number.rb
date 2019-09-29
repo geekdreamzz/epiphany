@@ -8,6 +8,7 @@ module Epiphany
                                   Epiphany::EntityType.find_by_name('number')
                                 else
                                   Epiphany::EntityType.create(name: 'number', voice_assistant_id: 0)
+                                  Epiphany::EntityType.find_by_name('number')
                                 end
       end
 
