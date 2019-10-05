@@ -1,6 +1,7 @@
 module Epiphany
   class EntityItem < ApplicationRecord
     extend EntityItems::Stubber
+    include EntityItems::VariationsSave
     include OnSave
 
     belongs_to :entity_type
@@ -29,7 +30,7 @@ module Epiphany
 
       #fragments is an array of strings. Tokenized from original phrase
       def str_token_matches(str_tokens)
-        where("variations && ARRAY[?]", str_tokens)
+        where("variations && ARRAY[?]", str_tokens).sort_by { |item| item.name.length  }.reverse
       end
 
       def match_ids(str_tokens)

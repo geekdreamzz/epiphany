@@ -31,7 +31,8 @@ module Epiphany
             required_entity_type_ids: [],
             show_stopper_entity_type_ids: [],
             entity_type_ordered_list: [],
-            parts_of_speech: {}
+            parts_of_speech: {},
+            final_str_rules: {}
         }
 
         params.each do |k,v|
@@ -61,6 +62,10 @@ module Epiphany
 
           if k == 'entity_type_ordered_list'
             rules[:entity_type_ordered_list] = v.split(',').map{|val| val.strip }
+          end
+
+          if k == "final_str_rules"
+            rules[k.to_sym] = JSON.parse(v)
           end
         end
 

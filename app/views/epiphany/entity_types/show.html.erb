@@ -32,18 +32,16 @@
       <table class="table table-data2">
         <thead>
         <tr>
-          <th>Keyword(s)</th>
-          <th>Metadata</th>
+          <th>Default Name</th>
+          <th>Variations</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
-        <% @entity_type.entity_items.each do |entity_item| %>
+        <% @entity_type.entity_items.order(updated_at: :desc).each do |entity_item| %>
           <tr class="tr-shadow">
             <td><%= entity_item.name %></td>
-            <td>
-              #TODO format/stringify the metadata?
-            </td>
+            <td><%= entity_item.variations.join(', ') %></td>
             <td>
               <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#editEntityItemMetadata<%= entity_item.id %>">
                 edit

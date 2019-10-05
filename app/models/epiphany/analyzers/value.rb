@@ -12,6 +12,9 @@ module Epiphany
         return if same_type_matches.find{|m| m.name == _str_token }
 
         same_type_matches.each do |m|
+          # we gsub / remove prev detected advanced analyzer tokens
+          next unless m.entity_type.analyzer_id.present?
+          next if entity_type_ordered_list.include?(m.entity_type.name)
           _str_token = _str_token.gsub(m.name, '')
         end
 
@@ -19,8 +22,10 @@ module Epiphany
         _str = ''
         valid = false
         str_matched_entity_type_ids = []
-
         entity_type_ordered_list.each_with_index do |entity_type_name, idx|
+
+          # ignore token matches of the same current analyzer
+          # @_matches = matches.select{|m| m.entity_type_id != self.id} if idx == 0
           @_matches = matches if idx == 0
 
           match = nil
@@ -53,6 +58,7 @@ module Epiphany
           valid = final_validation_passed?(_str) if idx == entity_type_ordered_list.length - 1
         end
         # end loop to determine derived value (we need to break this logic up)
+
 
         @advance_entity_value = valid ? _str.strip : nil
       end

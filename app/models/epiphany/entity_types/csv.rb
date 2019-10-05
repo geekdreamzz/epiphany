@@ -6,7 +6,7 @@ module Epiphany
           csv << fields
           entity_items.each do |e|
             sm = e.serialized_metadata
-            csv << [ e.name,
+            csv << [ e.variations.join(', '),
                      fields[1..-1].map do |field|
                        sm[field]
                      end
@@ -24,29 +24,14 @@ module Epiphany
             next
           end
 
-          name = row[0].downcase
+          variations = row[0].downcase.split(',')
           metadata = @headers[1..-1].map{|f| [f, row[@headers.index(f)]] }.to_h
           str_metadata = metadata.to_json
-          create_or_add_item_w(name, str_metadata)
+          create_or_add_item_w(variations, str_metadata)
           idx += 1
         end
       end
 
-      # TODO this needs to be abstracted into configuration - since you are just hacking this
-      # for the landing page launch
-      def fields
-        name == 'exercise' ? exercise_fields : macro_fields
-      end
-
-      def macro_fields
-        ['name', 'calories', 'protein', 'carbs', 'fat', 'default serving count', 'serving metric']
-      end
-
-      def exercise_fields
-        ['name']
-      end
-
     end
-
   end
 end

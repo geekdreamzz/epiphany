@@ -1,5 +1,6 @@
 module Epiphany
   class EntityType < ApplicationRecord
+    include EntityTypes::Importer
     include EntityTypes::Csv
     include OnSave
 
@@ -22,11 +23,13 @@ module Epiphany
       _items.first
     end
 
-    def create_or_add_item_w(name, metadata)
-      if item = EntityItem.where(name: name, entity_type_id: self.id).first
-        item.update(metadata: metadata)
+    def create_or_add_item_w(variations, metadata)
+      if item = EntityItem.where("variations && ARRAY[?] AND entity_type_id = ?", variations, self.id).first
+        _variations = (item.variations + variations).compact.map(&:downcase).uniq
+        item.update(metadata: metadata, variations: _variations.uniq)
       else
-        EntityItem.create(name: name, entity_type_id: self.id, metadata: metadata)
+        variations = variations.map(&:downcase).uniq
+        EntityItem.create(name: variations.first, entity_type_id: self.id, metadata: metadata, variations: variations)
       end
     end
 

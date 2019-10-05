@@ -13,6 +13,11 @@
             <form class="addEntityItemMetadataForm" action="<%= assistant_base_url %>/entity_items/<%= entity_item.id %>" method="post">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
+              <legend>Default Name: </legend>
+              <div class="form-group has-success entity_item_name">
+                <input name="name" placeholder="default name" value="<%= entity_item.name %>" />
+              </div>
+
               <legend>Synonyms / Word Variations: </legend>
               <p>
                 Comma separate synonyms/variations/acronyms etc of "<%= entity_item.name %>". By default we add the

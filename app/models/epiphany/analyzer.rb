@@ -7,7 +7,16 @@ module Epiphany
     include Analyzers::Validator
     include Analyzers::Value
     include Analyzers::PartsOfSpeech
+    include Analyzers::FinalStrRules
     include OnSave
+
+    STR_RULES = [
+      "must start with",
+      "must end with",
+      "cannot start with",
+      "cannot end with",
+      "cannot be preceded by"
+    ]
 
     before_save :normalize_name
 

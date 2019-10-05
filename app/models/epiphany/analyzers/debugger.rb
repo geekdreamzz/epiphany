@@ -13,8 +13,8 @@ module Epiphany
         items.destroy_all
       end
 
-      def fragmenter(_str)
-        ::Epiphany::Tokenizer::Fragmenter.fragmenter(_str)
+      def fragmenter(_str, **opts)
+        ::Epiphany::Tokenizer::Fragmenter.fragmenter(_str, opts)
       end
 
     end
