@@ -30,7 +30,12 @@ module Epiphany
 
       #fragments is an array of strings. Tokenized from original phrase
       def str_token_matches(str_tokens)
-        where("variations && ARRAY[?]", str_tokens).sort_by { |item| item.name.length  }.reverse
+        where("variations && ARRAY[?] AND entity_type_id in (?)", str_tokens, matchable_entity_type_ids)
+            .sort_by { |item| item.name.length  }.reverse
+      end
+
+      def matchable_entity_type_ids
+        @matchable_entity_type_ids ||= Epiphany::EntityType.where("analyzer_id is null").pluck(:id)
       end
 
       def match_ids(str_tokens)
