@@ -10,8 +10,11 @@
       <div class="modal-body">
         <div class="card">
           <div class="card-body">
-            <form action="<%= assistant_base_url %>/analyzers/<%= analyzer.id %>" method="post">
+            <form class="update-analyzer-form" action="<%= assistant_base_url %>/analyzers/<%= analyzer.id %>" method="post">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+              <input type="hidden" name="final_str_rules" class="final-str-rules-placeholder" />
+
               <p>Advanced Analyzers are used to detect "Advanced Entity Types".
                 Advanced Entity Types typically comprise of other entities + some additional rules below.
                 If the Analyzer returns true based on these rules, it will flag that phrase/token as a new Entity Type w/
@@ -36,6 +39,7 @@
                   <% end %>
                 </fieldset>
               </div>
+
               <div class="form-group has-success">
                 <fieldset>
                   <legend>Show Stopper Entities: </legend>
@@ -51,6 +55,27 @@
                   <% end %>
                 </fieldset>
               </div>
+
+              <div class="form-group has-success">
+                <fieldset>
+                  <legend>Grammar & Parts of Speech Rules: </legend>
+                  <p>Value options are: required, show_stopper, or boosted, if the analyzer returns true for this grammar
+                    rule, the provided value will be enforced, otherwise it skips it and continues with the analysis
+                  </p>
+                  <% parts_of_speech_fields.each do |pos| %>
+                    <label for="checkbox-nested-1" class="pos-label">
+                      <%= pos %>
+                    </label>
+                    <select class="pos-select" name="pos_<%= pos %>">
+                      <option></option>
+                      <% parts_of_speech_value_options.each do |opt| %>
+                        <option class="pos-selection" <%= 'selected' if analyzer.selected_pos_val?(pos, opt) %> value="<%= opt %>"> <%= opt %> </option>
+                      <% end %>
+                    </select>
+                  <% end %>
+                </fieldset>
+              </div>
+
               <!-- need a better UI here, for now instructing ppl to copy and paste the order that matters -->
               <div class="form-group has-success">
                 <legend>Entity Types Order List: </legend>
@@ -64,6 +89,110 @@
                           placeholder="Ordered List of Entity Types Separated By Comma"
                 ><%= analyzer.entity_type_order_list_string %></textarea>
               </div>
+
+              <!-- TOKEN RULES -->
+              <div class="form-group has-success token-rules">
+                <fieldset class="analyzer-token-rules">
+                  <legend>Token Rules</legend>
+                  <p> A token contains all the values in a phrase.</p>
+                  <p><%= analyzer.token_str_rules %></p>
+
+                  <!--TODO need to revist when we support multiple select inputs-->
+                  <div class="rules-section">
+                    <select name="token_rule_type_1">
+                      <option></option>
+                      <% Epiphany::Analyzer::STR_RULES.each do |rule| %>
+                        <option <%= 'selected' if analyzer.selected_token_str_rule?(rule) %> value="<%= rule %>"><%= rule %></option>
+                      <% end %>
+                    </select>
+                    <select name="token_rule_type_val_1">
+                      <option></option>
+                      <% all_entity_types.each do |entity_type| %>
+                        <option <%= 'selected' if analyzer.selected_token_str_val?(entity_type.name) %> value="<%= entity_type.name %>" ><%= entity_type.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+
+                  <!--TODO need to revist when we support multiple select inputs-->
+                  <div class="rules-section">
+                    <select name="token_rule_type_1">
+                      <option></option>
+                      <% Epiphany::Analyzer::STR_RULES.each do |rule| %>
+                        <option <%= 'selected' if analyzer.selected_token_str_rule?(rule) %> value="<%= rule %>"><%= rule %></option>
+                      <% end %>
+                    </select>
+                    <select name="token_rule_type_val_1">
+                      <option></option>
+                      <% all_entity_types.each do |entity_type| %>
+                        <option <%= 'selected' if analyzer.selected_token_str_val?(entity_type.name) %> value="<%= entity_type.name %>" ><%= entity_type.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+
+                  <!--TODO need to revist when we support multiple select inputs-->
+                  <div class="rules-section">
+                    <select name="token_rule_type_1">
+                      <option></option>
+                      <% Epiphany::Analyzer::STR_RULES.each do |rule| %>
+                        <option <%= 'selected' if analyzer.selected_token_str_rule?(rule) %> value="<%= rule %>"><%= rule %></option>
+                      <% end %>
+                    </select>
+                    <select name="token_rule_type_val_1">
+                      <option></option>
+                      <% all_entity_types.each do |entity_type| %>
+                        <option <%= 'selected' if analyzer.selected_token_str_val?(entity_type.name) %> value="<%= entity_type.name %>" ><%= entity_type.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+
+                </fieldset>
+              </div>
+
+              <!-- Display VALUE RULES -->
+              <div class="form-group has-success">
+                <fieldset class="analyzer-display-val-rules">
+                  <legend>Display Value Rules: </legend>
+                  <p> The display value are the "words" in the token you want to render. That is calculated from the entity
+                    types order list. Once we have that output, you can define additional rules around that label value.
+                  </p>
+                  <p><%= analyzer.display_value_rules %></p>
+
+                  <!--TODO need to revist when we support multiple select inputs-->
+                  <div class="rules-section">
+                    <select name="display_val_rule_type_1">
+                      <option></option>
+                      <% Epiphany::Analyzer::STR_RULES.each do |rule| %>
+                        <option <%= 'selected' if analyzer.selected_display_str_rule?(rule) %> value="<%= rule %>"><%= rule %></option>
+                      <% end %>
+                    </select>
+                    <select name="display_val_rule_type_val_1">
+                      <option></option>
+                      <% all_entity_types.each do |entity_type| %>
+                        <option <%= 'selected' if analyzer.selected_display_str_val?(entity_type.name) %> value="<%= entity_type.name %>" ><%= entity_type.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+
+                  <!--TODO need to revist when we support multiple select inputs-->
+                  <div class="rules-section">
+                    <select name="display_val_rule_type_1">
+                      <option></option>
+                      <% Epiphany::Analyzer::STR_RULES.each do |rule| %>
+                        <option <%= 'selected' if analyzer.selected_display_str_rule?(rule) %> value="<%= rule %>"><%= rule %></option>
+                      <% end %>
+                    </select>
+                    <select name="display_val_rule_type_val_1">
+                      <option></option>
+                      <% all_entity_types.each do |entity_type| %>
+                        <option <%= 'selected' if analyzer.selected_display_str_val?(entity_type.name) %> value="<%= entity_type.name %>" ><%= entity_type.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+
+                </fieldset>
+              </div>
+
+
               <div>
                 <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
                   <i class="zmdi zmdi-collection-bookmark"></i>

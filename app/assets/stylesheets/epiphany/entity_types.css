@@ -2,3 +2,37 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+.full-width {
+    width: 100%;
+}
+
+.white-link {
+    color: white;
+}
+
+.metadata-container {
+    padding: 15px 0px;
+}
+
+.metadata-container > .inline-metadata-group.placeholder {
+    display: none;
+}
+
+.metadata-container > .inline-metadata-group > input {
+    width: 49%;
+    border-bottom: #1b1b1b solid 1px;
+    padding-top: 15px;
+    font-size: 18px;
+}
+
+.variations > textarea, .entity_item_name > input {
+    width: 100%;
+    border: 1px solid grey;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.title-5.entity_types_header {
+    max-width: 200px;
+}

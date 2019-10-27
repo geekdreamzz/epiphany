@@ -2,11 +2,20 @@ module Epiphany
   module Intents
     module CalculateScore
 
-      def calculate_with(tokenized_entity_items, phrase)
+      def set_props(tokenized_entity_items, phrase)
         @tokenized_entity_items = tokenized_entity_items
         @score = 0
         @phrase = phrase
-        return self if show_stoppers? || !has_required_entities?
+        @phrase.intent = self
+        self
+      end
+
+      def calculate_with(tokenized_entity_items, phrase)
+        set_props(tokenized_entity_items, phrase)
+
+        # this populates an array of intents and is later sorted
+        # do not return intents that do not meet minimum requirements
+        return nil if show_stoppers? || !has_required_entities? || !meets_parts_of_speech_validation?
 
         entity_type_ids_for_calculation.each do |entity_type_id|
           match = tokenized_entity_items.find do |entity_item|
@@ -15,7 +24,9 @@ module Epiphany
           @score += match.name.length if match
         end
 
-        self
+        # this populates an array of intents and is later sorted
+        # do not return intents with scores of 0
+        @score > 0 ? self : nil
       end
 
       def phrase_text

@@ -4,7 +4,14 @@ module Epiphany
   class PhrasesController < ApplicationController
 
     def index
-      @phrases = current_assistant.training_phrases
+      Analyzer.purge_items
+
+      #TODO lazy load in ajax & add paging
+      @phrases = current_assistant.training_phrases.last(count)
+    end
+
+    def count
+      params[:count] || 15
     end
 
     def create

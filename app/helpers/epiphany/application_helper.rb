@@ -8,7 +8,7 @@ module Epiphany
     end
 
     def assistant_base_url
-      current_assistant.present? ? "/voice_assistants/#{current_assistant.id}" : ''
+      current_assistant.present? ? "/epiphany/voice_assistants/#{current_assistant.id}" : ''
     end
 
     def generate_url(path)
@@ -33,6 +33,14 @@ module Epiphany
 
     def all_entity_types
       current_assistant&.all_entity_types || []
+    end
+
+    def parts_of_speech_fields
+      Epiphany::Analyzers::PartsOfSpeech::SUPPORTED_FIELDS
+    end
+
+    def parts_of_speech_value_options
+      Epiphany::Analyzers::PartsOfSpeech::VALUE_OPTIONS
     end
   end
 end

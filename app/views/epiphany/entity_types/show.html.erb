@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- DATA TABLE -->
+    <div class="overview-wrap">
+      <h2 class="title-5 entity_types_header">Entity Type: <%= @entity_type.name %></h2>
+
+      <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#addEntityTypeItems<%= @entity_type.id %>">
+        <i class="zmdi zmdi-plus"></i>
+        Add Items
+      </button>
+
+      <a href="<%= generate_url('/entity_types/'+@entity_type.id.to_s+'.csv') %>" target="_blank">
+        <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button">
+          <i class="zmdi zmdi-case-download"></i>
+          Download CSV
+        </button>
+      </a>
+
+      <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#uploadEntityTypeItemsCSV">
+        <i class="zmdi zmdi-cloud-upload"></i>
+        Import CSV
+      </button>
+
+    </div>
+    <hr/>
+    <p>
+      Add metadata to the entity items within this entity type. This generic metadata association will enable you to further enhance your
+      application whenever the Epiphany library detects these entities.
+    </p>
+    <hr/>
+    <div class="table-responsive table-responsive-data2">
+      <table class="table table-data2">
+        <thead>
+        <tr>
+          <th>Default Name</th>
+          <th>Variations</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @entity_type.entity_items.order(updated_at: :desc).each do |entity_item| %>
+          <tr class="tr-shadow">
+            <td><%= entity_item.name %></td>
+            <td><%= entity_item.variations.join(', ') %></td>
+            <td>
+              <button class="au-btn au-btn-icon au-btn--green au-btn--small" type="button" data-toggle="modal" data-target="#editEntityItemMetadata<%= entity_item.id %>">
+                edit
+              </button>
+            </td>
+          </tr>
+          <tr class="spacer"></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- END DATA TABLE -->
+  </div>
+</div>

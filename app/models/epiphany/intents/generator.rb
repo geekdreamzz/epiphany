@@ -16,12 +16,15 @@ module Epiphany
         end
       end
 
+      # TODO the intent rules logic is very similar to the analyzer rules logic
+      # abstract so it's in a common place
       def generate_metadata_rules_hash(params)
         rules = {
             required_entity_type_ids: [],
             show_stopper_entity_type_ids: [],
             boosted_entity_type_ids: [],
-            entity_type_ordered_list: []
+            entity_type_ordered_list: [],
+            parts_of_speech: {}
         }
 
         params.each do |k,v|
@@ -35,6 +38,20 @@ module Epiphany
 
           if k.to_s.starts_with?('boosted_entity_')
             rules[:boosted_entity_type_ids] << v.to_i
+          end
+
+          if k.to_s.starts_with?('pos_')
+            key = ::Epiphany::Analyzers::PartsOfSpeech::SUPPORTED_FIELDS.find do |field|
+              field == k.split('pos_').last
+            end
+
+            val = ::Epiphany::Analyzers::PartsOfSpeech::VALUE_OPTIONS.find do |opt|
+              opt == v.strip
+            end
+
+            # parts of speech fields / vals are enforced in the above constants
+            next unless key && val
+            rules[:parts_of_speech][key] = val
           end
 
           if k == 'entity_type_ordered_list' && v.present?

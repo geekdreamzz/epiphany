@@ -1,8 +1,14 @@
 module Epiphany
   class EntityType < ApplicationRecord
-    has_many :entity_items
+    include EntityTypes::Importer
+    include EntityTypes::Csv
+    include OnSave
 
-    before_save :strip_name
+    has_many :entity_items
+    has_one :analyzer
+    has_one :voice_assistant
+
+    before_save :normalize_name
 
     def add_items(phrases)
       phrases = phrases.split(',')
@@ -17,8 +23,14 @@ module Epiphany
       _items.first
     end
 
-    def strip_name
-      self.name = name.strip
+    def create_or_add_item_w(variations, metadata)
+      if item = EntityItem.where("variations && ARRAY[?] AND entity_type_id = ?", variations, self.id).first
+        _variations = (item.variations + variations).compact.map(&:downcase).uniq
+        item.update(metadata: metadata, variations: _variations.uniq)
+      else
+        variations = variations.map(&:downcase).uniq
+        EntityItem.create(name: variations.first, entity_type_id: self.id, metadata: metadata, variations: variations)
+      end
     end
 
     class << self

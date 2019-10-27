@@ -9,6 +9,10 @@ module Epiphany
     has_many :intents
     has_many :training_phrases
 
+    def unknown_intent(tokenized_entity_items, phrase)
+      intents.new(name: 'intent unknown').set_props(tokenized_entity_items, phrase)
+    end
+
     def create_entity_type(params)
       EntityType.create_with_key_phrases(self, params)
     end

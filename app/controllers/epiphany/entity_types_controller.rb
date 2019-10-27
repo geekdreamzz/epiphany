@@ -13,9 +13,25 @@ module Epiphany
       redirect_to(generate_url('/entity_types'))
     end
 
+    def show
+      @entity_type = EntityType.find(params[:id])
+      respond_to do |format|
+        format.html
+        format.csv {
+          send_data @entity_type.api_csv, filename: "export-#{@entity_type.name}-items-template-#{Date.today}.csv"
+        }
+      end
+    end
+
+    def csv_import
+      @entity_type = EntityType.find(params[:id])
+      @entity_type.import_csv(params[:entity_type_csv])
+      redirect_to(generate_url('/entity_types/'+@entity_type.id.to_s))
+    end
+
     def add_items
       current_entity_type.add_items(params[:key_phrases])
-      redirect_to(generate_url('/entity_types'))
+      redirect_to(generate_url("/entity_types/#{current_entity_type.id}"))
     end
 
     def entity_type_params

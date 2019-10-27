@@ -1,11 +1,24 @@
 module Epiphany
   class TrainingPhrase < ApplicationRecord
     include ::Epiphany::Tokenizer
+    include Phrases::Giphy
+    include Phrases::Responder
+
+    before_save :normalize_phrase
 
     belongs_to :voice_assistant
 
-    def detected_entities
+    attr_accessor :intent
 
+    def normalize_phrase
+      self.phrase = phrase.strip.downcase
+    end
+
+    def detected_entities
+    end
+
+    def text
+      phrase
     end
 
     class << self

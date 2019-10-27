@@ -1,8 +1,8 @@
-<div class="modal fade" id="addEntityTypeItems<%= entity_type.id %>" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+<div class="modal fade" id="uploadEntityTypeItemsCSV" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="largeModalLabel">Add Entity Type Items</h5>
+        <h5 class="modal-title" id="largeModalLabel">Upload Entity Items CSV</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -10,12 +10,15 @@
       <div class="modal-body">
         <div class="card">
           <div class="card-body">
-            <form action="<%= assistant_base_url %>/entity_types/<%= entity_type.id %>" method="post">
+            <form enctype="multipart/form-data" action="<%= assistant_base_url %>/entity_types/<%= entity_type.id %>/csv" method="post">
               <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
               <div class="form-group has-success">
-                <label for="key_phrases" class="control-label mb-1">Known Key Phrases</label>
-                <textarea rows="8" id="key_phrases" name="key_phrases" class="form-control valid" aria-required="true"
-                          placeholder="List of entity words/phrases. Separate each by comma." required></textarea>
+                <label for="key_phrases" class="control-label mb-1">
+                  Always first download (button to the left) a CSV template prior to importing so that you have a
+                  validated template with the correct fields. If not, the importer may flag the import as a failure
+                  if field names are not in sync.
+                </label>
+                <input type="file" accept=".csv" name="entity_type_csv" />
               </div>
               <div>
                 <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">

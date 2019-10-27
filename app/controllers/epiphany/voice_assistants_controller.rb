@@ -5,9 +5,11 @@ module Epiphany
     skip_before_action :reroute_unless_assistant, only: :create
     skip_before_action :current_assistant, only: :create
 
+    # TODO ppl can mount their engine anyway so convert this into those
+    # path helper method things
     def create
       VoiceAssistant.create(create_params)
-      redirect_to('/')
+      redirect_to('/epiphany')
     end
 
     private

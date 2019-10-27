@@ -1,5 +1,6 @@
 module Epiphany
   module Tokenizer
+    # included in voice_assistant.rb
     module Base
       def tokenize(phrase)
         @phrase = phrase
@@ -15,13 +16,7 @@ module Epiphany
       end
 
       def fragmenter(_string)
-        fragments = _string.split(' ')
-        end_idx = fragments.length
-        (0..end_idx).map do |idx|
-          (idx..end_idx).map do |idx2|
-            fragments[idx..idx2].join(' ')&.downcase&.presence
-          end
-        end.flatten.uniq.compact #TODO def. optimize this later
+        ::Epiphany::Tokenizer::Fragmenter.fragmenter(_string)
       end
 
     end
