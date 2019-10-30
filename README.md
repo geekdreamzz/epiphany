@@ -5,7 +5,7 @@ Open Source Ruby on Rails engine to build Custom Voice Assistants
 *Currently in Alpha 
 
 ## Installation
-The configs for each model are stored in a traditional relational database. For now we are using postgres in our examples.
+The configs for each model are stored in a traditional relational database. For now we are using postgres in our examples. https://medium.com/@noordean/setting-up-postgresql-with-rails-application-357fe5e9c28
 Add this line to your Rails application's Gemfile:
 
 ```ruby
