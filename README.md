@@ -21,6 +21,7 @@ $ bundle
 generate initial models & migration
 ```ruby
 rails g epiphany:install
+rake db:migrate
 ```
 
 Mount the Engine in routes.rb, example:
