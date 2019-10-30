@@ -13,6 +13,11 @@ gem 'pg'
 gem 'epiphany', :git => "git://github.com:geekdreamzz/epiphany.git", :branch => "alpha"
 ```
 
+generate initial models & migration
+```ruby
+rails g epiphany:install
+```
+
 And then execute:
 ```bash
 $ bundle
