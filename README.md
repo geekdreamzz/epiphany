@@ -10,7 +10,7 @@ Add this line to your Rails application's Gemfile:
 
 ```ruby
 gem 'pg'
-gem 'epiphany', :git => "git://github.com:geekdreamzz/epiphany.git", :branch => "alpha"
+gem 'epiphany', :git => "https://github.com/geekdreamzz/epiphany.git", :branch => "alpha"
 ```
 
 And then execute:
