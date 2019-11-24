@@ -2,6 +2,7 @@ module Epiphany
   class VoiceAssistant < ApplicationRecord
     include Tokenizer::Base
     include Analyzers::Base
+    include Export::VoiceAssistant
 
     has_many :entity_types
     has_many :entity_items, through: :entity_types
