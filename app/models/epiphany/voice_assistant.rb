@@ -1,8 +1,11 @@
 module Epiphany
   class VoiceAssistant < ApplicationRecord
+    EXPORT_DIR = Etl::Export::EXPORT_DIR
+
     include Tokenizer::Base
     include Analyzers::Base
-    include Export::VoiceAssistant
+    include Etl::Export
+    extend  Etl::Import
 
     has_many :entity_types
     has_many :entity_items, through: :entity_types

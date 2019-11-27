@@ -62,3 +62,6 @@ build-iPhoneSimulator/
 
 .idea/*
 .idea/.generators
+
+app/assets/.DS_Store
+

@@ -34,6 +34,12 @@ module Epiphany
     end
 
     class << self
+      def find_or_create_by_name(name)
+        entity_type = find_by_name(name)
+        return entity_type if entity_type
+        create(name: name)
+      end
+
       def create_with_key_phrases(voice_assistant, params)
         entity_type = create(name: params[:entity_type_name]&.strip, voice_assistant_id: voice_assistant.id)
         phrases = params[:key_phrases].split(',')
