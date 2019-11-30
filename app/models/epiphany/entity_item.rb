@@ -22,6 +22,14 @@ module Epiphany
       @tokenized_entities ||= voice_assistant.tokenize(name)
     end
 
+    def api_response
+      {
+          name: name,
+          entity_type_name: entity_type.name,
+          metadata: JSON.parse(metadata)
+      }
+    end
+
     class << self
 
       def matches(ids)

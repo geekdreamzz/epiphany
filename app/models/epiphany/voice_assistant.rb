@@ -1,13 +1,22 @@
 module Epiphany
   class VoiceAssistant < ApplicationRecord
+    EXPORT_DIR = Etl::Export::EXPORT_DIR
+
     include Tokenizer::Base
     include Analyzers::Base
+    include Etl::Export
+    extend  Etl::Import
 
     has_many :entity_types
     has_many :entity_items, through: :entity_types
     has_many :analyzers
     has_many :intents
     has_many :training_phrases
+
+    def calculate_intent_of(phrase_text)
+      phrase_model = training_phrases.find_or_create_by(phrase: phrase_text)
+      ::Epiphany::Intent.calculate(self, phrase_model)
+    end
 
     def unknown_intent(tokenized_entity_items, phrase)
       intents.new(name: 'intent unknown').set_props(tokenized_entity_items, phrase)
