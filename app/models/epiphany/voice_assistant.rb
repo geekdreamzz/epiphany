@@ -13,6 +13,11 @@ module Epiphany
     has_many :intents
     has_many :training_phrases
 
+    def calculate_intent_of(phrase_text)
+      phrase_model = training_phrases.find_or_create_by(phrase: phrase_text)
+      ::Epiphany::Intent.calculate(self, phrase_model)
+    end
+
     def unknown_intent(tokenized_entity_items, phrase)
       intents.new(name: 'intent unknown').set_props(tokenized_entity_items, phrase)
     end

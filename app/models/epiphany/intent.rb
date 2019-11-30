@@ -21,6 +21,15 @@ module Epiphany
       name == 'intent unknown'
     end
 
+    def api_response
+      {
+          intent_name: name,
+          score: score,
+          phrase: phrase.phrase,
+          detected_entities: tokenized_entity_items.map(&:api_response)
+      }
+    end
+
     class << self
       def calculate(voice_assistant, phrase)
         tokenized_entity_items = voice_assistant.tokenize(phrase.phrase)

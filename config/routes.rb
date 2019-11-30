@@ -30,4 +30,8 @@ Epiphany::Engine.routes.draw do
     end
 
   end
+
+  namespace :api do
+    resources :voice_assistants, only: :show
+  end
 end
