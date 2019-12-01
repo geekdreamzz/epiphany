@@ -10,6 +10,11 @@ module Epiphany
           (0..end_idx).map do |idx|
             (idx..end_idx).map do |idx2|
               str = fragments[idx..idx2].join(' ')&.downcase&.presence
+
+              if block_given?
+                yield str
+              end
+
               if str && !opts[:no_variations]
                 frag_variations(str)
               elsif str
