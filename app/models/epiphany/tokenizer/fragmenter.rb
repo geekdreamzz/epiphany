@@ -4,7 +4,7 @@ module Epiphany
       class << self
 
         # cache this output
-        def fragmenter(_string, **opts)
+        def fragmenter(_string, **opts, &block)
           fragments = _string.split(' ')
           end_idx = fragments.length
           (0..end_idx).map do |idx|
