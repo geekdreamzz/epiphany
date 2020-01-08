@@ -24,7 +24,7 @@ module Epiphany
                                                    variations: ei['variations'], metadata: ei['metadata'])
 
               Epiphany::EntityItem.create(name: ei['name'], entity_type_id: entity_type.id,
-                                          variations: ei['variations'], metadata: ei['metadata'])
+                                          variations: ei['variations'], metadata: ei['metadata'] || '{}')
             end
           end
 

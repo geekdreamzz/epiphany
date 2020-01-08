@@ -2,9 +2,9 @@ module Epiphany
   module Tokenizer
     # included in voice_assistant.rb
     module Base
-      def tokenize(phrase)
+      def tokenize(phrase, owner_id = nil)
         @phrase = phrase
-        analyze(str_tokens)
+        analyze(str_tokens, owner_id)
       end
 
       def phrase

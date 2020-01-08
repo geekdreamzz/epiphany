@@ -38,7 +38,12 @@ module Epiphany
 
       #fragments is an array of strings. Tokenized from original phrase
       def str_token_matches(str_tokens)
-        where("variations && ARRAY[?] AND entity_type_id in (?)", str_tokens, matchable_entity_type_ids)
+        where("variations && ARRAY[?] AND entity_type_id in (?) AND owner_id is null", str_tokens, matchable_entity_type_ids)
+            .sort_by { |item| item.name.length  }.reverse
+      end
+
+      def owner_str_token_matches(str_tokens, owner_id)
+        where("variations && ARRAY[?] AND entity_type_id in (?) and owner_id = ?", str_tokens, matchable_entity_type_ids, owner_id)
             .sort_by { |item| item.name.length  }.reverse
       end
 

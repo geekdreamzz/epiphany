@@ -45,10 +45,20 @@ module Epiphany
     end
 
     def valid_entity?
+      # binding.pry if self.name == "serving size"
       !show_stoppers? &&
       has_required_entities? &&
       meets_parts_of_speech_validation? &&
       advance_entity_value
+    end
+
+    def debug_info
+      {
+        show_stoppers: show_stoppers?,
+        required_entities: has_required_entities?,
+        valid_pos: meets_parts_of_speech_validation?,
+        entity_val: advance_entity_value
+      }
     end
 
   end

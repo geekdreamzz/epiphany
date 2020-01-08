@@ -24,6 +24,8 @@ class CreateEpiphanyVoiceAssistants < ActiveRecord::Migration[Rails.version.to_f
     create_table :epiphany_entity_items do |t|
       t.string :name, null: false
       t.integer :entity_type_id, null: false
+      t.string :owner_type
+      t.integer :owner_id
       t.text :variations, array: true, default: []
       t.jsonb :metadata, default: '{}', null: false
       t.timestamps
@@ -31,6 +33,8 @@ class CreateEpiphanyVoiceAssistants < ActiveRecord::Migration[Rails.version.to_f
     add_index(:epiphany_entity_items, [:name], name: 'epiphany_entity_items_name_idx')
     add_index(:epiphany_entity_items, [:entity_type_id], name: 'epiphany_entity_items_entity_type_id_idx')
     add_index(:epiphany_entity_items, [:entity_type_id, :name], name: 'epiphany_entity_items_name_entity_type_id_idx')
+    add_index(:epiphany_entity_items, [:owner_id], name: 'epiphany_entity_items_owner_id_idx')
+    add_index(:epiphany_entity_items, [:owner_id, :owner_type], name: 'epiphany_entity_items_owner_id_and_type_idx')
 
     create_table :epiphany_intents do |t|
       t.string :name, null: false
