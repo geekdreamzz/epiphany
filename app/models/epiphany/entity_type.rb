@@ -33,6 +33,10 @@ module Epiphany
       end
     end
 
+    def system_entity_items
+      entity_items.where(owner_id: nil).order(updated_at: :desc)
+    end
+
     class << self
       def find_or_create_by_name(name)
         entity_type = find_by_name(name)

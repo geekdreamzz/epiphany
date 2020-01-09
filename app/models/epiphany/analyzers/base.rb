@@ -41,7 +41,7 @@ module Epiphany
       end
 
       def owner_matches(_str_tokens, owner_id)
-
+        ::Epiphany::EntityItem.owner_str_token_matches(_str_tokens, owner_id)
       end
 
     end

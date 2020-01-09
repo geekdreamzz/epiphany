@@ -38,7 +38,7 @@
         </tr>
         </thead>
         <tbody>
-        <% @entity_type.entity_items.order(updated_at: :desc).each do |entity_item| %>
+        <% @entity_type.system_entity_items.each do |entity_item| %>
           <tr class="tr-shadow">
             <td><%= entity_item.name %></td>
             <td><%= entity_item.variations.join(', ') %></td>
